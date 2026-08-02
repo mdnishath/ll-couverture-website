@@ -20,7 +20,8 @@ recréée à l'identique en Next.js.
 | Route | Contenu |
 | --- | --- |
 | `/` | Hero, services, réalisations, à propos, contact |
-| `/services` | Les 6 prestations, avec ancres `#zinguerie`, `#urgence`, … |
+| `/services` | Index des 6 prestations, chaque carte mène à sa page |
+| `/services/[slug]` | Page dédiée par service : `zinguerie`, `renovation-toiture`, `urgence`, `rives`, `gouttieres`, `charpente` |
 | `/realisations` | Chantiers avant / après + témoignage |
 | `/a-propos` | Histoire, chiffres, méthode en 4 étapes, garanties, zone d'intervention |
 | `/contact` | Formulaire de devis + coordonnées |
@@ -40,6 +41,18 @@ Tout le contenu métier (téléphone, email, adresse, horaires, services,
 réalisations, communes desservies) est centralisé dans
 [`lib/site.ts`](lib/site.ts) — un seul fichier à modifier pour mettre le site à
 jour.
+
+### Ajouter ou modifier un service
+
+Un service = une entrée dans le tableau `services` de `lib/site.ts`. Ajouter une
+entrée suffit : la page `/services/<slug>` est générée automatiquement, et le
+service apparaît dans le menu déroulant, sur la page d'accueil, dans la grille
+`/services`, dans le pied de page et dans le sitemap.
+
+Chaque entrée décrit : le résumé de la carte (`short`), les métadonnées SEO, le
+texte d'introduction (`lead`), les paragraphes (`body`), la liste des
+prestations (`includes`), les signes d'alerte (`signs`), le déroulé (`steps`) et
+la FAQ (`faq`, également publiée en JSON-LD `FAQPage`).
 
 ## Formulaire de contact
 

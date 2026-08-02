@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { services, site } from "@/lib/site";
+import { serviceHref, serviceLabel, services, site } from "@/lib/site";
 import { Roof } from "./Icons";
 
 export default function Footer() {
@@ -39,9 +39,8 @@ export default function Footer() {
             <div className="footer__h">Services</div>
             <div className="footer__col">
               {services.map((s) => (
-                <Link key={s.slug} href={`/services#${s.slug}`}>
-                  {s.title}
-                  {s.titleAccent ? ` ${s.titleAccent}` : ""}
+                <Link key={s.slug} href={serviceHref(s.slug)}>
+                  {serviceLabel(s)}
                 </Link>
               ))}
             </div>

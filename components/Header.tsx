@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { services, site } from "@/lib/site";
+import { serviceHref, serviceLabel, services, site } from "@/lib/site";
 import { Arrow, Burger, Chevron, Close, Phone, Roof } from "./Icons";
 
 const links = [
@@ -43,6 +43,9 @@ export default function Header() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
+  // Le lien « Services » reste actif sur les pages de détail /services/<slug>.
+  const svcActive = pathname.startsWith("/services");
+
   return (
     <header className="header" {...(stuck ? { "data-stuck": "" } : {})}>
       <div className="wrap header__inner">
@@ -71,7 +74,7 @@ export default function Header() {
               className="nav__link"
               aria-haspopup="true"
               aria-expanded={svcOpen}
-              {...(isActive("/services") ? { "data-active": "" } : {})}
+              {...(svcActive ? { "data-active": "" } : {})}
             >
               Services
               <Chevron size={14} />
@@ -79,11 +82,19 @@ export default function Header() {
             {svcOpen && (
               <div className="dropdown">
                 {services.map((s) => (
-                  <Link key={s.slug} href={`/services#${s.slug}`}>
-                    {s.title}
-                    {s.titleAccent ? ` ${s.titleAccent}` : ""}
+                  <Link
+                    key={s.slug}
+                    href={serviceHref(s.slug)}
+                    {...(pathname === serviceHref(s.slug)
+                      ? { "data-active": "" }
+                      : {})}
+                  >
+                    {serviceLabel(s)}
                   </Link>
                 ))}
+                <Link href="/services" className="dropdown__all">
+                  Tous les services
+                </Link>
               </div>
             )}
           </div>
@@ -126,9 +137,8 @@ export default function Header() {
           <Link href="/">Accueil</Link>
           <Link href="/services">Services</Link>
           {services.map((s) => (
-            <Link key={s.slug} href={`/services#${s.slug}`} className="sub">
-              {s.title}
-              {s.titleAccent ? ` ${s.titleAccent}` : ""}
+            <Link key={s.slug} href={serviceHref(s.slug)} className="sub">
+              {serviceLabel(s)}
             </Link>
           ))}
           <Link href="/realisations">Réalisations</Link>
