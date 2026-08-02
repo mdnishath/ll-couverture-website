@@ -7,7 +7,7 @@ export const site = {
   address: ["77 rue de l'Hermitage", "91290 Arpajon"],
   hours: ["Lun – Ven : 07:00 – 19:00", "Sam : 08:00 – 17:00"],
   area: "Arpajon & Essonne (91)",
-  url: "https://ll-couverture.vercel.app",
+  url: "https://ll-couverture-website.vercel.app",
 } as const;
 
 export type Service = {
