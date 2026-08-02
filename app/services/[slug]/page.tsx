@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import CtaBand from "@/components/CtaBand";
 import { Arrow, Check, Phone } from "@/components/Icons";
 import Media from "@/components/Media";
+import { jsonLdScript } from "@/lib/jsonld";
 import {
   getService,
   serviceHref,
@@ -231,7 +232,7 @@ export default async function ServiceDetailPage({
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(faqJsonLd) }}
       />
     </>
   );
